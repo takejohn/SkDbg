@@ -1,6 +1,9 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm")
+    id("com.github.johnrengelman.shadow").version("8.1.1")
 }
 
 group = "jp.takejohn"
@@ -20,13 +23,16 @@ repositories {
         name = "papermc"
         url = uri("https://papermc.io/repo/repository/maven-public/")
     }
+    maven {
+        url = uri("https://ci.emc.gs/nexus/content/groups/aikar/")
+    }
 }
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation(project(":Skript"))
 
-    compileOnly("org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT")
+    shadow(project(":Skript", "shadow"))
+    shadow("org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT")
 }
 
 val targetJavaVersion = 8
@@ -56,4 +62,13 @@ tasks.withType(ProcessResources::class.java) {
     filesMatching("plugin.yml") {
         expand(props)
     }
+}
+
+tasks.withType(ShadowJar::class.java) {
+    archiveClassifier = ""
+    exclude("Skript.jar")
+}
+
+tasks.build.configure {
+    dependsOn(tasks.shadowJar)
 }
