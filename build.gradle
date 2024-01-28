@@ -15,10 +15,15 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "papermc"
+        url = "https://papermc.io/repo/repository/maven-public/"
+    }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT"
+    implementation project(":Skript")
 }
 
 def targetJavaVersion = 8

@@ -1,0 +1,4 @@
+[submodule "Skript"]
+	path = Skript
+	url = https://github.com/takejohn/Skript.git
+	branch = feature/debugger-api
