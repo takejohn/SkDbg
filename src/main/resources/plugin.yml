@@ -1,0 +1,4 @@
+name: SkDbg
+version: '${version}'
+main: jp.takejohn.skdbg.SkDbg
+api-version: '1.13'
